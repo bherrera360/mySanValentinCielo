@@ -1,0 +1,563 @@
+/* Reset y estilos generales */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Georgia, sans-serif;
+  background-color: #fff5f5;
+  background-image: url("fotos/cielo.jpg");
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+  transition: background 0.5s ease-in-out;
+}
+
+/* Header */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background-color: #ff9cd100;
+  text-align: center;
+  display: none;
+}
+
+.nav-bar {
+  display: flex;
+  position: fixed;
+  justify-content: left;
+  gap: 20px;
+}
+
+.nav-bar button {
+  background-color: #ff4d88cf;
+  padding: 12px 25px;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+}
+
+.nav-bar button:hover {
+  background-color: #ff85a2;
+}
+
+/* Pantalla de Inicio */
+.content {
+  padding: 20px;
+  border-radius: 10px;
+
+  background-color: #ffffffe7;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 1s ease-in-out;
+}
+.paginaBienvenida {
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 150px;
+  background-color: #ffffffe7;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 1s ease-in-out;
+  padding-bottom: 80px; /* Ajusta según el tamaño del footer */
+}
+
+.rul {
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 450px;
+  background-color: #ffffffe7;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 1s ease-in-out;
+  padding-bottom: 80px; /* Ajusta según el tamaño del footer */
+}
+
+.diasJuntos {
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #fffffff5;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 1s ease-in-out;
+}
+.hidden {
+  display: none;
+}
+
+button {
+  background-color: #ff1493;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 20px;
+  transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+  background-color: #ff69b4;
+  transform: scale(1.1);
+}
+
+/* Sección Recuerdos */
+.carrusel {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.carrusel-images {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.imagen img {
+  width: 400px;
+  height: 200px;
+
+  object-fit: cover;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 20;
+}
+
+.modal-content {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  max-width: 80%;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.card {
+  width: 250px;
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.card img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.card h3 {
+  margin: 10px 0;
+  font-size: 18px;
+}
+
+.card button {
+  background-color: #ff1493;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+/* Ocultar la galería por defecto */
+#recuerdos {
+  display: none;
+}
+
+/* Estilos para la galería */
+.galeria {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 80px 20px; /* Agrega espacio arriba y abajo */
+  margin-top: 250px; /* Asegura que no se superponga con el header */
+  margin-bottom: 100px; /* Evita que se pegue al footer */
+}
+
+/* Estilos del modal actualizado */
+.modal-content {
+  width: 90%;
+  max-width: 600px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  position: relative;
+}
+
+.modal-content img {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.modal h2 {
+  font-size: 22px;
+  margin: 15px 0;
+  color: #ff1493;
+}
+
+.modal p {
+  font-size: 16px;
+  color: #555;
+}
+
+/* Estilos para el título */
+h1 {
+  font-size: 32px;
+  font-weight: bold;
+  color: #ff1493;
+  text-shadow: 3px 3px 5px rgba(255, 255, 255, 0.5);
+  margin-bottom: 15px;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+h2 {
+  font-size: 32px;
+  font-weight: bold;
+  color: #000000;
+  text-shadow: 3px 3px 5px rgba(255, 255, 255, 0.5);
+  margin-bottom: 15px;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+/* Estilos para el contador */
+#contador {
+  font-size: 20px;
+  font-weight: bold;
+  color: #3343d6;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 10px 15px;
+  border-radius: 10px;
+  display: inline-block;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  animation: pulse 1.5s infinite alternate;
+}
+#tiempoNovios {
+  font-size: 20px;
+  font-weight: bold;
+  color: #ff0000;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 10px 15px;
+  border-radius: 10px;
+  display: inline-block;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  animation: pulse 2s infinite alternate;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  to {
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 24px;
+  }
+
+  #contador {
+    font-size: 18px;
+    padding: 8px 12px;
+  }
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .modal-content {
+    max-width: 90%;
+  }
+
+  .modal-content img {
+    max-height: 300px;
+  }
+
+  .modal h2 {
+    font-size: 18px;
+  }
+
+  .modal p {
+    font-size: 14px;
+  }
+}
+.decorationText {
+  text-align: center;
+  margin: 0px auto;
+  letter-spacing: 3px;
+  text-shadow: -1px -1px 0px var(--background), 3px 3px 0px var(--background),
+    6px 6px 0px #00000055;
+}
+
+/* Sección Nosotros */
+
+/* Card para la sección de Nosotros */
+.nosotros-card {
+  background: #ffffff;
+  padding: 20px;
+  margin-top: 300px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 500px;
+  width: 90%;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+/* Imagen dentro de la card */
+.foto-central {
+  width: 50%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+/* Texto dentro de la card */
+.nosotros-texto {
+  padding: 10px;
+}
+
+.nosotros-texto h1 {
+  font-size: 22px;
+  color: #ff1493;
+  margin-bottom: 10px;
+  overflow-y: auto; /* Permite desplazamiento si hay mucho texto */
+}
+
+.nosotros-texto p {
+  font-size: 18px;
+  color: #333;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .nosotros-card {
+    width: 95%;
+    padding: 15px;
+  }
+
+  .foto-central {
+    max-width: 100%;
+  }
+
+  .nosotros-texto h1 {
+    font-size: 20px;
+  }
+
+  .nosotros-texto p {
+    font-size: 16px;
+  }
+}
+.mensaje-bienvenida {
+  width: 90%;
+  max-width: 800px; /* Ajuste para pantallas grandes */
+  margin: 50px auto; /* Centrado con margen superior */
+  padding: 20px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  position: relative;
+}
+
+canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+#boton {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 18px;
+  border: none;
+  background: #ff4d6d;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#boton:hover {
+  background: #e63950;
+}
+
+.footer {
+  background-color: #ff4d88b2; /* Color rosado pastel */
+  color: #fff; /* Texto en blanco */
+  text-align: center;
+  padding: 15px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.container-nosotros {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 400px;
+  padding-bottom: 100px; /* Ajusta según el tamaño del footer */
+}
+
+.card-nosotros {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  max-width: 900px;
+  width: 100%;
+}
+
+.card-imagen {
+  flex: 1;
+  padding: 10px;
+}
+
+.card-imagen img {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card-texto {
+  flex: 1;
+  padding: 20px;
+  background: #ffe6ea;
+  text-align: left;
+}
+
+.card-texto h1 {
+  font-size: 24px;
+  color: #d63384;
+}
+
+.card-texto p {
+  font-size: 18px;
+  color: #000000;
+}
+
+/* RULETA  */
+
+.contenedor {
+  padding: 10px;
+  width: 980px;
+  max-width: calc(100% - 20px);
+  margin-top: 50px;
+  color: #8b008b; /* Texto en tono morado */
+  text-align: center;
+}
+
+.planes {
+  margin-top: 20px;
+  text-align: center;
+  margin: auto;
+  position: relative;
+}
+
+canvas {
+  margin-top: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+button {
+  position: relative;
+  padding: 10px 20px;
+  font-size: 18px;
+  background: #ff69b4; /* Botón en tono rosa */
+  color: #fff;
+  border-style: none;
+  z-index: 10;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.mark-winner {
+  position: absolute;
+  clip-path: polygon(0 10px, 60px 0, 60px 20px);
+  background: #ff69b4; /* Marcador en tono rosa */
+  width: 60px;
+  height: 20px;
+  top: 50%;
+  right: 18%;
+  z-index: 10;
+  box-shadow: 0 0 3px #33333399;
+}
+
+.premio {
+  text-align: center;
+  color: #8b008b; /* Título en tono morado */
+  margin-bottom: 20px;
+}
+
+#nuevoDiv {
+  position: absolute;
+  bottom: 10px; /* Ajusta según necesidad */
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.8);
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}

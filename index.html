@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+/>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>San Valentín</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <!-- Header -->
+  <header id="header" class="hidden header">
+    <div class="nav-bar">
+      <button id="btnInicio">Inicio</button>
+      <button id="btnNosotros">Nosotros</button>
+      <button id="btnRecuerdos">Recuerdos</button>
+      <button id="btnRuleta">Ruleta</button>
+      <button id="btnSalir">Salir</button>
+    </div>
+  </header>
+  <body>
+    <!-- Pantalla de Inicio -->
+
+    <div id="inicio" class="content">
+      <h1 class="">Mi niña hermosa, ¿Quisieras ser mi San Valentín?</h1>
+      <p id="contador">Cargando...</p>
+      <div>
+        <button id="aceptoBtnSi">Sí</button>
+        <button id="aceptoBtnNo">No!</button>
+      </div>
+
+      <div id="passwordPrompt" class="hidden">
+        <p>Para revelar el sitio que diseñe especialmente para ti</p>
+        <p>introduce la contraseña correcta</p>
+        <p>¿Cuál sera el nombre de nuestro primer hijo(a)?</p>
+        <label for="password">Contraseña:</label>
+        <input
+          placeholder="minusculas y sin espacio"
+          type="password"
+          id="password"
+        />
+        <button id="submitPassword">Ingresar</button>
+      </div>
+
+      <div id="messagesContainer" class="hidden">
+        <br />
+        <p id="message">¿Estás segura? ¡DIME QUE SI!</p>
+        <button id="nextMessageBtn">NO</button>
+      </div>
+    </div>
+
+    <!-- Este mensaje estará oculto al inicio -->
+    <div id="mensajeBienvenida" style="display: none" class="paginaBienvenida">
+      <h1>Bienvenida a nuestro sitio web</h1>
+      <h2>¡Sabia que dirías que sí!</h2>
+      <p>
+        Mi amor, GRACIAS por ser mi San Valentín, desde que llegaste a mi vida
+        me llenaste de felicidad y amor.
+        <br />
+        No hay palabras suficientes para expresar lo agradecido que estoy por
+        tenerte a mi lado. Eres la razón de mis sonrisas, mi paz y mi mayor
+        bendición.
+        <br />
+        Prometo cuidarte, amarte y hacerte feliz cada día. Gracias por confiar
+        en mí, por regalarme tu amor y por ser la persona más especial en mi
+        vida. ❤️✨💖
+      </p>
+    </div>
+
+    <!-- seccion ruleta -->
+    <div id="ruleta" style="display: none" class="rul">
+      <h1>Gira la ruleta y gana una de estas recompensas ❤️</h1>
+      <div class="planes">
+        <canvas id="idcanvas" width="600" height="600"></canvas>
+        <br />
+        <button onclick="sortear()" id="boton">
+          <span id="idestado">Girar</span>
+        </button>
+
+        <div class="mark-winner"></div>
+      </div>
+      <h3 id="premio" style="display: none"></h3>
+    </div>
+    <script type="text/javascript">
+      const array_planes = [
+        "Cena romántica",
+        "Picnic al atardecer",
+        "Noche de pasión",
+        "Noche de películas",
+        "Pijamada",
+        "Tu eliges",
+        "Cena romántica",
+        "Picnic al atardecer",
+        "Noche de pasión",
+        "Noche de películas",
+        "Pijamada",
+        "Tu eliges",
+      ];
+
+      let canvas = document.getElementById("idcanvas");
+      let context = canvas.getContext("2d");
+      let center = canvas.width / 2;
+
+      context.beginPath();
+      context.moveTo(center, center);
+      context.arc(center, center, center, 0, 2 * Math.PI);
+      context.lineTo(center, center);
+      context.fillStyle = "#33333333";
+      context.fill();
+
+      context.beginPath();
+      context.moveTo(center, center);
+      context.arc(center, center, center - 10, 0, 2 * Math.PI);
+      context.lineTo(center, center);
+      context.fillStyle = "black";
+      context.fill();
+
+      for (var i = 0; i < array_planes.length; i++) {
+        context.beginPath();
+        context.moveTo(center, center);
+        context.arc(
+          center,
+          center,
+          center - 20,
+          (i * 2 * Math.PI) / array_planes.length,
+          ((i + 1) * 2 * Math.PI) / array_planes.length
+        );
+        context.lineTo(center, center);
+        context.fillStyle = random_color();
+        context.fill();
+
+        context.save();
+        context.translate(center, center);
+        context.rotate(
+          (3 * 2 * Math.PI) / (5 * array_planes.length) +
+            (i * 2 * Math.PI) / array_planes.length
+        );
+        context.translate(-center, -center);
+        context.font = "17px Comic Sans MS";
+        context.textAlign = "right";
+        context.strokeStyle = "black"; // Color del bordeado negro
+        context.lineWidth = 2; // Ancho del bordeado
+        context.strokeText(array_planes[i], canvas.width - 30, center);
+        context.fillStyle = "white";
+        context.fillText(array_planes[i], canvas.width - 30, center);
+        context.restore();
+      }
+
+      let pos_ini = 0;
+      let clic = 0;
+      let movement;
+      function sortear() {
+        if (clic == 0) {
+          let canvas = document.getElementById("idcanvas");
+          movement = setInterval(function () {
+            pos_ini += 10;
+            canvas.style.transform = "rotate(" + pos_ini + "deg)";
+          }, 10);
+          clic = 1;
+          document.getElementById("idestado").innerHTML = "Detener";
+        } else {
+          clearInterval(movement);
+          clic = 0;
+          document.getElementById("idestado").innerHTML = "Sortear";
+          // document.getElementById("boton").style.display = "none"; // Oculta el botón
+          const seleccionadoIndex = Math.floor(
+            (pos_ini % 360) / (360 / array_planes.length)
+          );
+          const seleccionado =
+            array_planes[array_planes.length - 1 - seleccionadoIndex];
+          const premioElement = document.getElementById("premio");
+          premioElement.textContent = `Felicidades! Tu premio es: ${seleccionado} ❤️`;
+          premioElement.style.display = "block"; // Muestra el premio ganado
+        }
+      }
+
+      function random_color() {
+        const colors = [
+          "#FF1654",
+          "#FF6B6B",
+          "#FFB7B2",
+          "#FFD3B6",
+          "#FFACD1",
+          "#FFE4E1",
+          "#FFC3A0",
+        ];
+        const randomIndex = Math.floor(Math.random() * colors.length);
+        return colors[randomIndex];
+      }
+    </script>
+
+    <!-- Secciones -->
+
+    <section id="nosotros" class="seccion hidden">
+      <div class="container-nosotros">
+        <br />
+        <div class="card-nosotros">
+          <div class="card-imagen">
+            <img class="foto-central" src="fotos/foto21.jpg" alt="Nosotros" />
+          </div>
+
+          <div class="card-texto">
+            <h2>Nuestra historia comenzó el 16 de agosto de 2024...</h2>
+
+            <p>
+              Ese día aceptaste ser mi novia, jamas olvidare aquel momento lleno
+              de nervios, miedo y demasiados pensamientos dentro de mi por saber
+              tu respuesta, desde entonces cada día a tu lado ha sido un regalo,
+              lleno de risas, momentos inolvidables y un amor que cada día va
+              creciendo.
+            </p>
+
+            <p class="text-center">
+              Llevamos:
+              <br />
+              <span id="tiempoNovios">Cargando...</span>
+              <a>y este contador no tendra fin...</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div id="recuerdos" class="galeria">
+      <div class="card">
+        <div
+          class="imagen"
+          data-titulo="Nuestra Primer foto"
+          data-descripcion="Recuerdo cómo sonreíamos, tal vez con un poco de timidez, pero en mi corazón sentí algo especial. Desde entonces, cada vez que veo esa foto, vuelvo a sentir la emoción de aquel día, la felicidad de tenerte a mi lado y la certeza de que nuestra historia apenas comenzaba."
+          data-imagen="fotos/foto1.jpg"
+        >
+          <img src="fotos/foto1.jpg" alt="Recuerdo 1" />
+          <h3>Nuestra Primer foto</h3>
+          <button class="btnAbrirModal">Ver</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div
+          class="imagen"
+          data-titulo="Citas"
+          data-descripcion="Cada cita contigo es un tesoro, y me encanta recordar las primeras salidas que tuvimos juntos. Tal vez en algunas mas nervioso y aveces no saber que decir, pero con el paso del tiempo cada cita se volvía más especial y divertida."
+          data-imagen="fotos/foto18.jpg"
+        >
+          <img src="fotos/foto18.jpg" alt="Recuerdo 2" />
+          <h3>Citas</h3>
+
+          <button class="btnAbrirModal">Ver</button>
+        </div>
+      </div>
+      <div class="card">
+        <div
+          class="imagen"
+          data-titulo="Nuestro primer viaje"
+          data-descripcion="Recuerdo la primera vez que viajamos en moto, fue un día lluvioso que no esperábamos. Nos mojamos,
+          y lo que más me preocupaba era que pensaras que fue un mal día.
+          Pero contigo, incluso el clima más gris se volvió especial y al final entendí que lo importante era estar juntos, en ese instante y todo lo demás quedó en segundo plano."
+          data-imagen="fotos/foto5.jpg"
+        >
+          <img src="fotos/foto5.jpg" alt="Recuerdo 3" />
+          <h3>Primer Viaje</h3>
+
+          <button class="btnAbrirModal">Ver</button>
+        </div>
+      </div>
+      <div class="card">
+        <div
+          class="imagen"
+          data-titulo="Salidas al gym"
+          data-descripcion="Compartir contigo el gusto por el ejercicio me motivaba a mejorar físicamente.
+          Esas horas juntos en el gym y crossfit no solo nos hicieron más fuertes, sino que también nos acercaron más y fortalecimos aún más nuestra conexión"
+          data-imagen="fotos/foto7.jpg"
+        >
+          <img src="fotos/foto7.jpg" alt="Recuerdo 4" />
+          <h3>GYM</h3>
+
+          <button class="btnAbrirModal">Ver</button>
+        </div>
+      </div>
+      <div class="card">
+        <div
+          class="imagen"
+          data-titulo="23 Octubre 2024"
+          data-descripcion="El primer cumpleaños que pasé contigo y tu familia es un recuerdo que siempre guardaré en el corazón.
+          Me sentí tan afortunado de estar a tu lado, compartiendo ese día especial contigo, y de conocer un poco más de ti a través de las personas que tanto amas."
+          data-imagen="fotos/fotoCumple.jpg"
+        >
+          <img src="fotos/fotoCumple.jpg" alt="Recuerdo 5" />
+          <h3>Tu Cumpleaños</h3>
+
+          <button class="btnAbrirModal">Ver</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div
+          class="imagen"
+          data-titulo="Acuario"
+          data-descripcion="Lo mas bonito de ese dia fue el poder admirar a tu lado la belleza de la naturaleza, y ver la felicidad en tus ojos al ver a los animales marinos."
+          data-imagen="fotos/foto3.jpg"
+        >
+          <img src="fotos/foto3.jpg" alt="Recuerdo 6" />
+          <h3>Acuario</h3>
+          <button class="btnAbrirModal">Ver</button>
+        </div>
+      </div>
+      <div class="card">
+        <div
+          class="imagen"
+          data-titulo="Estar Contigo"
+          data-descripcion="La primera vez que estuvimos juntos fue un momento tan especial, aquel instante en el que nos entregamos el uno al otro,
+          no solo con el cuerpo, sino con el alma, fue especial en todos los sentidos.
+          Fue un instante lleno de emoción, nervios y deseo, pero sobre todo, de confianza y amor puro.
+         
+          Desde entonces, cada vez a tu lado es especial, porque en cada abrazo y en cada beso sigo sintiendo la magia de aquella primera vez. ❤️✨"
+          data-imagen="fotos/foto9.jpg"
+        >
+          <img src="fotos/foto9.jpg" alt="Recuerdo 7" />
+          <h3>Juntos</h3>
+          <button class="btnAbrirModal">Ver</button>
+        </div>
+      </div>
+      <div class="card">
+        <div
+          class="imagen"
+          data-titulo="Futbol"
+          data-descripcion="Gracias por cada vez que estás ahí, apoyándome en mis partidos de fútbol, mi corazón se llena de felicidad.
+          Tu apoyo significa más de lo que imaginas, porque no solo estás ahí viendo un juego, estás acompañándome en algo que me apasiona, 
+          demostrando que lo que me importa, también importa para ti.
+          Y eso, amor, es algo que valoro con todo mi corazón. 
+          Gracias por ser mi mayor hincha, mi inspiración y mi mejor compañera dentro y fuera de la cancha. ❤️⚽✨"
+          data-imagen="fotos/fut23.jpg"
+        >
+          <img src="fotos/fut23.jpg" alt="Recuerdo 8" />
+          <h3>Siempre apoyándome</h3>
+          <button class="btnAbrirModal">Ver</button>
+        </div>
+      </div>
+      <div class="card">
+        <div
+          class="imagen"
+          data-titulo="Año Nuevo 2025"
+          data-descripcion="Nuestro primer año nuevo juntos, pasarlo junto a ti y mi familia fue un momento especial,  la cuenta regresiva, el 
+          primer abrazo y beso del año siempre estarán dentro de mi y no solo fue el primero de muchos que quiero seguir celebrando contigo. ✨❤️🥂 "
+          data-imagen="fotos/foto10.jpg"
+        >
+          <img src="fotos/foto10.jpg" alt="Recuerdo 9" />
+          <h3>Año Nuevo</h3>
+          <button class="btnAbrirModal">Ver</button>
+        </div>
+      </div>
+      <div class="card">
+        <div
+          class="imagen"
+          data-titulo="Amor de mi vida"
+          data-descripcion="Desde que llegaste a mi vida, todo tomó un nuevo significado. 
+          Contigo aprendí lo que es el amor verdadero, ese que se siente en cada mirada,
+          en cada risa compartida y en cada pequeño detalle del día a día. Eres mi apoyo, mi paz, mi felicidad y la persona con la que quiero construir cada uno de mis sueños.
+
+          No hay duda en mi corazón: eres el amor de mi vida. La razón por la que cada día quiero ser mejor, por la que sonrío sin motivo
+          y por la que agradezco cada instante que compartimos. No importa lo que venga, siempre quiero que sea a tu lado, porque no hay un
+          lugar en el mundo donde prefiera estar más que contigo.
+          
+          Te amo Cielo. ❤️✨"
+          data-imagen="fotos/foto16feb25.jpg"
+        >
+          <img src="fotos/foto14.jpg" alt="Recuerdo 10" />
+          <h3>Amor de mi vida</h3>
+          <button class="btnAbrirModal">Ver</button>
+        </div>
+      </div>
+      <!-- Agregar más tarjetas según sea necesario -->
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal hidden">
+      <div class="modal-content">
+        <span id="cerrarModal" class="cerrar">&times;</span>
+        <h2 id="modalTitulo"></h2>
+        <img id="modalImagen" src="" alt="Imagen del modal" />
+        <p id="modalDescripcion"></p>
+      </div>
+    </div>
+
+    <script src="script.js" defer></script>
+  </body>
+  <footer class="footer">
+    <p>💙✨ Con mucho amor para ti, mi niña hermosa 💖✨</p>
+  </footer>
+</html>
